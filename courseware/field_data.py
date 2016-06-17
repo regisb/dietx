@@ -1,7 +1,7 @@
 import redis
 import xblock.runtime
 
-from . import settings
+from django.conf import settings
 
 
 class FieldData(xblock.runtime.KvsFieldData):
@@ -17,15 +17,13 @@ class RedisKeyValueStore(xblock.runtime.KeyValueStore):
         self.client = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT)
 
     def get(self, key):
-        value = self.client.get(key)
-        if value is None:
-            raise KeyError
-        return value
+        raise NotImplementedError
 
     def has(self, key):
         return self.client.get(key) is not None
 
     def set(self, key, value):
         raise NotImplementedError
+
     def delete(self, key):
         raise NotImplementedError

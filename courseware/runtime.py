@@ -1,7 +1,9 @@
 import re
 
-from flask import url_for
+from xblock.django.request import django_to_webob_request
 import xblock.runtime
+
+from django.templatetags.static import static
 
 from . import field_data
 
@@ -21,11 +23,11 @@ class Runtime(xblock.runtime.Runtime):
         self.user_id = user_id
 
     def resource_url(self, resource):
-        return url_for("static", filename=resource)
+        return static("courseware/" + resource)
 
     def handle(self, block, handler_name, request, suffix=''):
-        # Convert Flask request to webob
-        request = WebobRequest(request)
+        # Convert Django request to webob
+        request = django_to_webob_request(request)
         return super(Runtime, self).handle(block, handler_name, request, suffix=suffix)
     # TODO implement missing methods
     # pylint: disable=too-many-arguments
@@ -52,6 +54,7 @@ class Runtime(xblock.runtime.Runtime):
             'application/javascript',
             placement='head',
         )
+        wrapped.add_javascript_url(self.resource_url("js/vendor/jquery.cookie.js"))
 
         if frag.js_init_fn:
             wrapped.add_javascript_url(self.resource_url("js/runtime/%s.js" % frag.js_init_version))

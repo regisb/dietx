@@ -37,7 +37,7 @@ var RuntimeProvider = (function() {
         for (var i = 0; i < children.length; i++) {
           var child = children[i];
           if (child.name == childName) {
-            return child
+            return child;
           }
         }
       }
@@ -100,7 +100,7 @@ var XBlockAsides = (function () {
         var initFn = window[$(element).data('init')];
         var jsBlock;
         // $(element).siblings('div.xblock-v1')[0]
-        var block_element = $(element).siblings('[data-usage="'+$(element).data('block_id')+'"]')
+        var block_element = $(element).siblings('[data-usage="'+$(element).data('block_id')+'"]');
         var data = $(".xblock_json_init_args", element).text();
         if (data) data = JSON.parse(data); else data = {};
         jsBlock = new initFn(runtime, element, block_element, data) || {};
@@ -136,11 +136,11 @@ $(function() {
         });
     };
 
-    $('body').on('ajaxSend', function(elm, xhr, s) {
+    $(document).ajaxSend(function(elm, xhr, s) {
         // Pass along the Django-specific CSRF token.
         xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
     });
 
     XBlock.initializeBlocks($('body'));
-    XBlockAsides.initializeAsides($('.xblock_asides-v1'))
+    XBlockAsides.initializeAsides($('.xblock_asides-v1'));
 });
