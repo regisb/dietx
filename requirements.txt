@@ -1,1 +1,6 @@
 Flask>=0.11.1
+-e git+https://github.com/edx/XBlock.git@master#egg=XBlock
+redis
+
+# xblock requirements
+pyyaml

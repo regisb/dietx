@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Student view</title>
+        <script>
+            var studentId = "{{ user_id }}";
+            // TODO we should probably use a call to url_for or a global variable
+            var handlerBaseUrl = "/block/";
+        </script>
+        {{ head_html|safe }}
+    </head>
+
+    <body>
+        {{ body_html|safe }}
+        {{ foot_html|safe }}
+        {% if js_init_fn %}
+        <script>
+            (function() {
+                {{ js_init_fn }}( {{ json_init_args }});
+            })();
+        </script>
+        {% endif %}
+    </body>
+</html>

@@ -6,7 +6,13 @@ WARNING: this is pre alpha code, pretty much a work-in-progress during the Open 
 
 The goal is to create an extensible, lightweight platform for running online courses, based on the Open edX XBlock runtime.
 
+Make sure a redis server is running and configure the right port in `dietx/settings.py`::
+
+    redis-server --port 6381
+
 Get running::
 
     pip install -r requirements.txt
-    .dietx.py
+    ./runserver.py
+    # Or run in debug mode
+    FLASK_DEBUG=1 ./runserver.py
